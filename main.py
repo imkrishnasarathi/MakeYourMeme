@@ -42,6 +42,16 @@ def find_best_template(topic, templates):
 
 template_url = find_best_template(topic, templates)
 
+def wrap_text(draw, text, font, max_width):
+    lines = []
+    words = text.split()
+    while words:
+        line = ''
+        while words and draw.textlength(line + words[0], font=font) < max_width:
+            line += (words.pop(0) + ' ')
+        lines.append(line.strip())
+    return lines
+
 
 def create_meme(template_url, text, output_file="meme.jpg"):
     response = requests.get(template_url)
